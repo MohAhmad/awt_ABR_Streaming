@@ -6,7 +6,7 @@ import CustomButton from './components/Button';
 import {Container, InnerContainer} from './style'
 
 function App() {
-  const [tragectories, setTragectories] = useState('ksl');
+  const [tragectories, setTragectories] = useState('Trajectory');
 
 
 // Define the data for the chart
@@ -24,7 +24,7 @@ var data = {
     var ctx ;
     useEffect(()=>{
     let myChart;
-    if(document ){
+    if(document){
     chartDiv = document.getElementById('myChart'); 
     ctx = chartDiv.getContext('2d');
     myChart = new Chart(ctx, {
@@ -55,7 +55,7 @@ return ()=>{
       <Container container>
       <InnerContainer item xs={5}>
         <InputField tragectories={tragectories} setTragectories={setTragectories} /> 
-        <CustomButton/>  
+        <CustomButton tragectories={tragectories} setTragectories={setTragectories}/>  
       </InnerContainer>
       <InnerContainer item xs={5}>
       <InnerContainer item><canvas id="myChart"/></InnerContainer> 
