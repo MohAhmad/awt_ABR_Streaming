@@ -35,7 +35,7 @@ var data = {
     if(document){
     chartDiv = document.getElementById('myChart'); 
     ctx = chartDiv.getContext('2d');
-    myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, { 
       type: 'line', // Type of chart (e.g., bar, line, pie)
       data: data, // Data object we defined above
       segment: {
