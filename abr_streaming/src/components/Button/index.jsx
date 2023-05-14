@@ -8,7 +8,6 @@ const CustomButton = (props)=>{
         FormulaCheck(props.tragectories);
         //showShart(props.tragectories)        
     }
-
     const FormulaCheck = (props) => {
 
         const propsWithoutBrace = props.replace(/[\[\]]/g, ''); //to delete []            console.log(propsWithoutBrace)

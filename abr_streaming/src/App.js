@@ -7,7 +7,15 @@ import {Container, InnerContainer} from './style'
 
 function App() {
   const [tragectories, setTragectories] = useState('Trajectory');
-
+  const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+  const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+  const genericOptions = {
+  fill: true,
+  interaction: {
+    intersect: false
+  },
+  radius: 0,
+};
 
 // Define the data for the chart
 var data = {
@@ -28,16 +36,14 @@ var data = {
     chartDiv = document.getElementById('myChart'); 
     ctx = chartDiv.getContext('2d');
     myChart = new Chart(ctx, {
-      type: 'bar', // Type of chart (e.g., bar, line, pie)
+      type: 'line', // Type of chart (e.g., bar, line, pie)
       data: data, // Data object we defined above
-      options: {
-        responsive: true, // Make the chart responsive
-        scales: {
-          y: {
-            beginAtZero: true // Start the y-axis at zero
-          }
-        }
-      }
+      segment: {
+        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+        borderDash: ctx => skipped(ctx, [6, 6]),
+      },
+      spanGaps: true,
+      options: genericOptions,
     })
 
 }
