@@ -30,7 +30,7 @@ var data = {
 };
     var chartDiv = null;
     var ctx ;
-    useEffect(()=>{
+    useEffect(()=>{ 
     let myChart;
     if(document){
     chartDiv = document.getElementById('myChart'); 
