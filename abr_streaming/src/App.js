@@ -11,26 +11,53 @@ function App() {
   const [submitedData, setSubmitedData] = useState([]);
   const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
   const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+  const maxSpeed = 1000;
+  let myChart;  
   const genericOptions = {
   fill: true,
   interaction: {
     intersect: false
   },
   radius: 0,
+  scales: {
+    y:{
+            beginAtZero: true,
+            max: maxSpeed,
+            grid: {
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: true ,
+            }
+    },
+    x:{
+      beginAtZero: true,
+      min: 0,
+      grid: {
+        display: true,
+        drawOnChartArea: true,
+      }
+    }
+},
+responsive: false,
+plugins: {
+  title: {
+      display: true,
+      text: 'Trajectory',
+  },
+  legend: {
+    position: 'bottom'
+  },
+},
 };
 
 if(isSubmited){ 
   const arrayTragectories = Object.values(tragectories);
-  const initialDurations = arrayTragectories.map((element) => {
-    element = JSON.parse(element);
-    return element.duration;
-
-  })
   let durations = arrayTragectories.map((element) => {
     element = JSON.parse(element);
     return element.duration;
 
   })
+  durations.unshift(0)
 
   for (let i = 1; i < durations.length; i++) { 
     durations[i] = durations[i] + durations[i-1];
@@ -40,6 +67,7 @@ if(isSubmited){
     return element.speed;
 
   })
+  speeds.push(speeds[speeds.length-1])
   setSubmitedLabels(durations);
   setSubmitedData(speeds);
   setIsSubmited(false);
@@ -51,7 +79,7 @@ var initialdata = {
     label: 'Trajectory',
     data: submitedData,//[12, 19, 3, 5, 2, 3],
     backgroundColor: 'lightblue', // rgba(255, 99, 132, 0.2)', // Background color of the bars
-    borderColor: 'lightblue', // rgba(255, 99, 132, 1)', // Border color of the bars
+    borderColor: '#00008B', // rgba(255, 99, 132, 1)', // Border color of the bars
     borderWidth: 1, // Border width of the bars
     stepped: true,
   }]
@@ -59,7 +87,6 @@ var initialdata = {
     var chartDiv = null;
     var ctx ;
     useEffect(()=>{ 
-    let myChart;
     if(document){
     chartDiv = document.getElementById('myChart'); 
     ctx = chartDiv.getContext('2d');
@@ -93,7 +120,7 @@ return ()=>{
         <InputField tragectories={tragectories} setTragectories={setTragectories} setIsSubmited={setIsSubmited}/> 
       </InnerContainer>
       <InnerContainer item xs={5}>
-      <InnerContainer item><canvas id="myChart"/></InnerContainer> 
+      <InnerContainer item width={"100%"} minHeight={"100%"}><canvas id="myChart"/></InnerContainer> 
       </InnerContainer>
       </Container>
     </div>
