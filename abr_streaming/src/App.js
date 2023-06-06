@@ -4,8 +4,10 @@ import InputField from "./components/InputField";
 import CustomButton from "./components/Button";
 import LineChart from "./components/Chart";
 import { Container, InnerContainer } from "./style";
-import SaveChartButton from "./components/SaveButton";
+import SaveAsImageButton from "./components/SaveAsImageButton";
+import SaveJSONButton from "./components/SaveJSONButton";
 import UploadButton from "./components/UploadButton";
+
 
 
 function App() {
@@ -60,8 +62,9 @@ function App() {
         </InnerContainer>
       </Container>
       <Container container flexDirection={"row"}>
-      <SaveChartButton/>
+      <SaveAsImageButton/>
       <UploadButton setTragectories={setTragectories}/>  
+      <SaveJSONButton tragectories={tragectories} isValid={isValid}/>
       </Container>  
     </div>
   );

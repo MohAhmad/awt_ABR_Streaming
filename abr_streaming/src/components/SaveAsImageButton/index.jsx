@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const SaveChartButton = (props) => {
+const SaveAsImageButton = (props) => {
     function saveChart() {
         var canvas = document.getElementById('lineChart');
 
@@ -28,8 +28,8 @@ const SaveChartButton = (props) => {
       style={{ textTransform: "initial", marginTop: '20px'}}
       onClick={saveChart}
     >
-      Save Chart
+      Save Chart as png
     </Button>
   );
 };
-export default SaveChartButton;
+export default SaveAsImageButton;
