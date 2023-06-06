@@ -27,6 +27,7 @@ const InputField = (props) => {
         maxRows={20}
         variant="filled"
         onChange={handleChange}
+        value={props.tragectories}
         InputProps={{
           style: inputStyle,
         }}

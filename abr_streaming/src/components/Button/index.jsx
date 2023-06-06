@@ -11,9 +11,7 @@ const CustomButton = (props) => {
     } else {
       props.setIsValid(false);
     }
-    console.log("Status: ", status, "  Valid: ");
     if (status) props.setIsSubmitted(true);
-    console.log(" Is Valid after: ");
   }
 
   return (

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import InputField from "./components/InputField";
 import CustomButton from "./components/Button";
 import LineChart from "./components/Chart";
 import { Container, InnerContainer } from "./style";
-import SaveChartButton from "./components/SaveButton"
+import SaveChartButton from "./components/SaveButton";
+import UploadButton from "./components/UploadButton";
+
 
 function App() {
   const [tragectories, setTragectories] = useState("Trajectory");
@@ -57,7 +59,10 @@ function App() {
           <LineChart durations={durations} speeds={speeds}/>
         </InnerContainer>
       </Container>
+      <Container container flexDirection={"row"}>
       <SaveChartButton/>
+      <UploadButton setTragectories={setTragectories}/>  
+      </Container>  
     </div>
   );
 }
