@@ -4,6 +4,7 @@ import InputField from "./components/InputField";
 import CustomButton from "./components/Button";
 import LineChart from "./components/Chart";
 import { Container, InnerContainer } from "./style";
+import SaveChartButton from "./components/SaveButton"
 
 function App() {
   const [tragectories, setTragectories] = useState("Trajectory");
@@ -53,9 +54,10 @@ function App() {
           />
         </InnerContainer>
         <InnerContainer item xs={5}>
-          <LineChart minHeight={"400px"} durations={durations} speeds={speeds}/>
+          <LineChart durations={durations} speeds={speeds}/>
         </InnerContainer>
       </Container>
+      <SaveChartButton/>
     </div>
   );
 }

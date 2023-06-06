@@ -15,6 +15,10 @@ scales: {
   y: {
     beginAtZero: true,
     max: maxSpeed,
+    title: {
+      display: true,
+      text: "Bandwidth in kbit/s",
+    },
     grid: {
       display: true,
       drawOnChartArea: true,
@@ -24,6 +28,10 @@ scales: {
   x: {
     beginAtZero: true,
     min: 0,
+    title: {
+      display: true,
+      text: "Time",
+    },
     grid: {
       display: true,
       drawOnChartArea: true,
@@ -42,37 +50,6 @@ plugins: {
 };
 
 
-/*
-  */
-
-
-// Define the data for the chart
-
-/*
-var chartDiv = null;
-var ctx;
-
-if (document) {
-  chartDiv = document.getElementById("myChart");
-  ctx = chartDiv.getContext("2d");
-  initialdata.labels = submitedLabels;
-  initialdata.datasets.data = submitedData;
-  myChart = new Chart(ctx, {
-    type: "line", // Type of chart (e.g., bar, line, pie)
-    data: initialdata, // Data object we defined above
-    segment: {
-      borderColor: (ctx) =>
-        skipped(ctx, "rgb(0,0,0,0.2)") || down(ctx, "rgb(192,75,75)"),
-      borderDash: (ctx) => skipped(ctx, [6, 6]),
-    },
-    spanGaps: true,
-    options: genericOptions,
-  });
-}
-return () => {
-  myChart.destroy();
-};  */
-
 
 const LineChart = (props) => {
     var initialdata = {
@@ -89,8 +66,8 @@ const LineChart = (props) => {
         ],
         };
     return (
-      <div style={{minHeight: "300px"}}>
-        <Line data={initialdata} options={genericOptions} width={500} height={300}/>
+      <div style={{minHeight: "300px", backGround:'white'}}>
+        <Line id="lineChart" data={initialdata} options={genericOptions} width={500} height={300}/>
       </div>
     );
   };
