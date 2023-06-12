@@ -1,48 +1,54 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useEffect, useState } from "react";
 import InputField from "./components/InputField";
-import CustomButton from "./components/Button";
+import SubmitButton from "./components/SubmitButton";
 import LineChart from "./components/Chart";
 import { Container, InnerContainer } from "./style";
 import SaveAsImageButton from "./components/SaveAsImageButton";
 import SaveJSONButton from "./components/SaveJSONButton";
 import UploadButton from "./components/UploadButton";
+import {convertTragectoriesToObject} from './shared/helper';
 
-
+const initialTragectories = "[{duration: 400, speed: 500}, {duration: 900, speed: 900},{duration: 600, speed: 400}, {duration: 1200, speed: 200}, {duration: 800, speed: 60}, {duration: 400, speed: 600}, {duration: 800, speed: 1200}]";
 
 function App() {
-  const [tragectories, setTragectories] = useState("Trajectory");
+  const [tragectories, setTragectories] = useState(initialTragectories);
+  useEffect(()=>{
+    const storedTragectories = localStorage.getItem("tragectories");
+    if(storedTragectories){
+      setTragectories(storedTragectories);
+    }
+    setIsSubmitted(true);
+  }, []);
+ 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [durations, setDurations] = useState();
-  const [speeds, setSpeeds] = useState();
   const [isValid, setIsValid] = useState(true);
-
+  const [durations, setDurations] = useState([]);
+  const [speeds, setSpeeds] = useState([]);
 
     if (isSubmitted) {
-    const arrayTragectories = Object.values(tragectories);
-    let submittedDurations = arrayTragectories.map((element) => {
-      element = JSON.parse(element);
-      return element.duration;
-    });
-    submittedDurations.unshift(0);
+
+    const stringTragectories = convertTragectoriesToObject(tragectories);
     
-    for (let i = 1; i < submittedDurations.length; i++) {
-      submittedDurations[i] = submittedDurations[i] + submittedDurations[i - 1];
-    }
-    let submittedSpeeds = arrayTragectories.map((element) => {
-      element = JSON.parse(element);
-      return element.speed;
-    });
+    let submittedDurations= [0];
+    let submittedSpeeds= [];
+    stringTragectories.forEach((stringTragectory, index) => {
+      const startDuration = submittedDurations[index];
+      const { duration, speed } = JSON.parse(stringTragectory);
+      submittedDurations.push(duration + startDuration);
+      submittedSpeeds.push(speed);
+    });  
+    
     submittedSpeeds.push(submittedSpeeds[submittedSpeeds.length - 1]);
     setDurations(submittedDurations);
     setSpeeds(submittedSpeeds);
+    localStorage.setItem("tragectories", tragectories);
     setIsSubmitted(false);
-    } 
+    }   
 
   return (
     <div className="App">
       <Container container>
-        <InnerContainer item xs={5}>
+        <InnerContainer item xs={5} container>
           <InputField
             tragectories={tragectories}
             setTragectories={setTragectories}
@@ -50,7 +56,7 @@ function App() {
             setIsValid={setIsValid}
             isValid={isValid}
           />
-          <CustomButton
+          <SubmitButton
             tragectories={tragectories}
             setTragectories={setTragectories}
             setIsSubmitted={setIsSubmitted}
@@ -61,13 +67,13 @@ function App() {
           <LineChart durations={durations} speeds={speeds}/>
         </InnerContainer>
       </Container>
-      <Container container flexDirection={"row"}>
+      <Container container flexDirection={"row"} justifyContent={"space-evenly"} sx={{mt: "100px"}}>
       <SaveAsImageButton/>
-      <UploadButton setTragectories={setTragectories}/>  
+      <UploadButton setTragectories={setTragectories} isValid={isValid} tragectories={tragectories}/>  
       <SaveJSONButton tragectories={tragectories} isValid={isValid}/>
       </Container>  
     </div>
-  );
+  );  
 }
 
 export default App;

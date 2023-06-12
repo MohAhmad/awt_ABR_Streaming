@@ -1,13 +1,19 @@
 import React from "react";
 
-const UploadButton = ({setTragectories}) => {
+const UploadButton = ({setTragectories, isValid, tragectories}) => {
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
         e.preventDefault();
         const file = e.target.files.item(0)
-        const text = await file.text();
-        setTragectories(text);
+        if(!file) return;
+        const fileText = await file.text();
+        if(tragectories && isValid){
+          setTragectories(tragectories.concat(fileText));
+        }
+        else{
+          setTragectories(fileText);
+        }
     }
   };
 

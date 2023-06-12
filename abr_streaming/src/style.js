@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
-import { Box } from "@mui/material";
 
 export const Container = styled(Grid)`
   flex-direction: row;
@@ -9,4 +8,5 @@ export const Container = styled(Grid)`
 `;
 export const InnerContainer = styled(Grid)`
   margin: 20px;
+  flex-direction: column;
 `;

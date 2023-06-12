@@ -1,10 +1,9 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const SaveAsImageButton = (props) => {
+const SaveAsImageButton = () => {
     function saveChart() {
         var canvas = document.getElementById('lineChart');
-
         var tempCanvas = document.createElement('canvas');
         tempCanvas.width = canvas.width;
         tempCanvas.height = canvas.height;
