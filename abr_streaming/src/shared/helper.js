@@ -25,7 +25,7 @@ export const FormulaCheck = (tragectories, setTragectories) => {
     const matches = convertTragectoriesToObject(tragectories);
     if (!matches) return false;
     if (matches.every(isTragectoryType)) {
-      setTragectories(matches.toString());
+      // setTragectories(matches.toString());
       return true;
     }
   

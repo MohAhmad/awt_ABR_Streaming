@@ -11,11 +11,14 @@ import {convertTragectoriesToObject} from './shared/helper';
 const initialTragectories = "[{duration: 400, speed: 500}, {duration: 900, speed: 900},{duration: 600, speed: 400}, {duration: 1200, speed: 200}, {duration: 800, speed: 60}, {duration: 400, speed: 600}, {duration: 800, speed: 1200}]";
 
 function App() {
-  const [tragectories, setTragectories] = useState(initialTragectories);
+  const [tragectories, setTragectories] = useState("");
   useEffect(()=>{
     const storedTragectories = localStorage.getItem("tragectories");
-    if(storedTragectories){
+    if(!tragectories && storedTragectories){
       setTragectories(storedTragectories);
+    }
+    else{
+      setTragectories(initialTragectories);
     }
     setIsSubmitted(true);
   }, []);
@@ -28,7 +31,7 @@ function App() {
     if (isSubmitted) {
 
     const stringTragectories = convertTragectoriesToObject(tragectories);
-    
+  
     let submittedDurations= [0];
     let submittedSpeeds= [];
     stringTragectories.forEach((stringTragectory, index) => {
@@ -64,7 +67,7 @@ function App() {
           />
         </InnerContainer>
         <InnerContainer item xs={5}>
-          <LineChart durations={durations} speeds={speeds}/>
+          <LineChart durations={durations} speeds={speeds} setTragectories={setTragectories} tragectories={tragectories} setIsSubmitted={setIsSubmitted}/>
         </InnerContainer>
       </Container>
       <Container container flexDirection={"row"} justifyContent={"space-evenly"} sx={{mt: "100px"}}>
