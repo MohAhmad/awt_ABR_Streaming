@@ -90,7 +90,7 @@ const LineChart = ({ durations, speeds, setTragectories, tragectories, setIsSubm
  
   return (
     <div style={{ minHeight: "300px", background: "white" }}>
-      <Line ref={lineChartRef} data={initialData} options={genericOptions} width={500} height={300} />
+      <Line id={"lineChart"} ref={lineChartRef} data={initialData} options={genericOptions} width={500} height={300} />
     </div>
   );
 };
